@@ -1,0 +1,54 @@
+#include <locale.h>
+#include <stdio.h>
+#define TAM 10
+
+int pilha[TAM];
+int topo = -1;
+
+void push(int valor) {
+      if (topo < TAM-1){
+        pilha[++topo] = valor;
+        printf("valor inserido: %d\n",valor);
+    }else
+        printf("Erro: Pilha cheia!\n");
+}
+
+int pop() {
+    if (topo >= 0)
+        return pilha[ topo-- ];
+    else {
+        printf("Erro: Pilha vazia!\n");
+        return -1; // Valor de erro
+    }
+}
+void topoPilha(){
+    printf("O elemento no topo é: %d\n",pilha[topo]);
+}
+void imprimir(){
+    printf("\n");
+    printf("Os elementos da pilha são:\n");
+    int i;
+    i=topo;
+while(i!=-1){
+    printf("%d\n",pilha[i]);
+    i--;
+}
+}
+
+int main() {
+    setlocale(LC_ALL,"PORTUGUESE");
+    // Inserindo elementos na pilha
+    push(10);
+    push(20);
+    push(30);
+
+    imprimir();
+    topoPilha();
+        printf("\n");
+    // Removendo e imprimindo elementos
+    printf("Elemento removido: %d\n", pop());
+    printf("Elemento removido: %d\n", pop());
+    printf("\n");
+    topoPilha();
+
+}
