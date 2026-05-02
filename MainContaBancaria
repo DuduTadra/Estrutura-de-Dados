@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include "ContaBancaria.h"
+
+main(){
+Conta c1;
+    inicializar(&c1, 245, 10.30);
+    depositar(&c1, 20);
+    depositar(&c1, 0);
+    sacar(&c1, 5);
+    sacar(&c1, 200);
+    imprime(&c1);
+}
