@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <locale.h>
+#define TAM 10
+
+typedef struct{
+    int valor[TAM];
+    int tamanho;
+}Lista;
+
+void inicializar(Lista *l){
+    l->tamanho=0;
+    printf("INICIALIZANDO...\n");
+}
+
+void insereFinal(Lista *l, int val){
+    if(l->tamanho!=TAM){
+     l->valor[l->tamanho]=val;
+     printf("valor %d, inserido em %d\n",l->valor[l->tamanho],l->tamanho);
+     l->tamanho++;
+
+     }else
+     printf("Lista cheia!\n");
+}
+int insereEsp(Lista *l, int val, int pos){
+    int pos_aux;
+    if(pos<0){
+        printf("Posição invalida!\n");
+        return 1;
+    }
+    if(l->tamanho!=TAM){
+        if(l->tamanho>pos){
+            pos_aux = l->tamanho-1;
+            while(pos_aux>=pos){
+                 l->valor[pos_aux+1] = l->valor[pos_aux];
+                 pos_aux--;
+            }
+            l->valor[pos]=val;
+            l->tamanho++;
+            printf("valor %d, inserido em %d\n",l->valor[pos],pos);
+        }else
+        insereFinal(l, val);
+
+    }else
+     printf("Lista cheia!\n");
+}
+
+int remover(Lista *l, int val){
+   if(l->tamanho!=0){
+      for(int i=0;i<l->tamanho;i++){
+        if(l->valor[i]==val){
+            printf("REMOÇÃO: Elemento[%d]:%d\n",i,l->valor[i]);
+            int posaux=i;
+            while(posaux<l->tamanho-1){
+                l->valor[posaux]=l->valor[posaux+1];
+                posaux++;
+            }
+            l->tamanho--;
+            return 1;
+        }
+      }
+      printf("Não existe este elemento na lista!\n");
+   }else
+   printf("Lista vazia!\n");
+}
+int buscarElem(Lista *l, int val){
+  if(l->tamanho!=0){
+      for(int i=0;i<l->tamanho;i++){
+        if(l->valor[i]==val){
+                printf("BUSCA: Elemento[%d]:%d\n",i,val);
+            return 1;
+        }
+      }
+      printf("Não existe este elemento na lista!\n");
+   }else
+   printf("Lista vazia!\n");
+}
+void imprimir(Lista *l){
+    if(l->tamanho!=0){
+     printf("\nLISTA IMPRIMIDA:\n");
+      for(int i=0;i<l->tamanho;i++){
+        printf("Elemento[%d]:%d\n",i,l->valor[i]);
+      }
+   }else
+   printf("Lista vazia!\n");
+
+}
+main(){
+Lista c;
+      setlocale(LC_ALL,"PORTUGUESE");
+      inicializar(&c);
+      insereFinal(&c, 10);
+      insereFinal(&c, 12);
+      insereFinal(&c, 18);
+      buscarElem(&c, 12);
+      remover(&c, 10);
+      remover(&c, 11);
+      imprimir(&c);
+      insereEsp(&c, 9, -1);
+      insereEsp(&c, 9, 1);
+      imprimir(&c);
+      insereEsp(&c, 14, 4);
+      imprimir(&c);
+}
